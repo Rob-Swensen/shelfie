@@ -17,7 +17,7 @@ deleteProduct = (id) => {
     render(){
         const {inventory} = this.props
         let inventoryList = inventory.map((element, index) => {return <Product key={index} item={element}
-        name={element.name} price={element.price} img={element.img} delete={this.deleteProduct}/>;});
+        name={element.name} price={element.price} img={element.img} delete={this.deleteProduct} edit={this.props.edit}/>;});
         return(
             <div>
                 {inventoryList}

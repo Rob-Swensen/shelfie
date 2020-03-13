@@ -5,16 +5,22 @@ class Form extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: '',
-            price: 0,
-            imgurl: '',
+            name: this.props.selected.name,
+            price: this.props.selected.price,
+            img: this.props.selected.img,
             editingId: this.props.selected.id
         }
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.selected.id !== prevProps.id){
-            this.setState({})
+        console.log(prevProps.selected.id)
+        if(this.props.selected.id !== prevProps.selected.id){
+            this.setState({
+                name: this.props.selected.name,
+                price: this.props.selected.price,
+                img: this.props.selected.img,
+                editingId: this.props.selected.id
+            })
         }
     }
 
@@ -28,38 +34,39 @@ class Form extends Component{
         this.setState({
             name: '',
             price: 0,
-            imgurl: ''
+            img: ''
     })
     }
 
 
     handleAdd = () => {
-        const {name, price, imgurl} = this.state
-        axios.post('/api/product', {name, price, imgurl})
+        const {name, price, img} = this.state
+        axios.post('/api/product', {name, price, img})
         .then(() => {this.props.get()})
         .catch(error => console.log(error))
         this.setState({
             name: '',
             price: 0,
-            imgurl: ''
+            img: ''
         })
     }
 
     updateProduct = (id) => {
-        const {name, price, imgurl} = this.state
-        axios.put(`/api/inventory/${id}`, {name, price, imgurl})
+        const {name, price, img} = this.state
+        axios.put(`/api/inventory/${id}`, {name, price, img})
         .then(() => this.props.get())
         .catch(error => console.log(error))
     }
 
     render(){
         return(
-            <div>
-                <input value={this.state.imgurl} placeholder='imgurl' onChange={e => this.handleChange(e)} />
+            <div className='product-card'>
+                <input value={this.state.img} placeholder='img' onChange={e => this.handleChange(e)} />
                 <input value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
                 <input value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
                 <button onClick={this.handleCancel}>Cancel</button>
                 <button onClick={this.handleAdd}>Add to Inventory</button>
+                <button onClick={() => this.updateProduct(this.props.selected.id)}>Save</button>
             </div>
         )
     }

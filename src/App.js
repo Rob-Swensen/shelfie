@@ -10,9 +10,15 @@ class App extends Component {
 
     this.state = {
       inventory: [],
-      selectedProduct: [],
+      selectedProduct: {
+        id: 0,
+        name: '',
+        price: 0,
+        img: ''
+      },
     }
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.addSelectedProduct = this.addSelectedProduct.bind(this)
   }
 
   componentDidMount(){
@@ -22,14 +28,26 @@ class App extends Component {
     .catch(error => console.log(error))
   }
 
+  addSelectedProduct(id, name, price, img){
+    console.log()
+    this.setState({
+      selectedProduct: {
+        id,
+        name,
+        price,
+        img,
+      }
+    })
+  }
+
 
   render(){
-    console.log(this.state.inventory)
+    console.log(this.state.selectedProduct)
     return(
       <div> 
-        <Dashboard inventory={this.state.inventory} get={this.componentDidMount}/>
-        <Form get={this.componentDidMount} selected={this.state.selectedProduct}/>
         <Header />
+        <Dashboard inventory={this.state.inventory} get={this.componentDidMount} edit={this.addSelectedProduct}/>
+        <Form get={this.componentDidMount} selected={this.state.selectedProduct}/>
       </div>
     )
   }
