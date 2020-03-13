@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import Dashboard from './Components/Dashboard';
-import Form from './Components/Form';
-import Header from './Components/Header';
+import Dashboard from './Components/Dashboard/Dashboard';
+import Form from './Components/Form/Form';
+import Header from './Components/Header/Header';
 import axios from 'axios';
+import {HashRouter} from 'react-router-dom';
 
 class App extends Component {
   constructor(){
@@ -44,11 +45,13 @@ class App extends Component {
   render(){
     console.log(this.state.selectedProduct)
     return(
-      <div> 
-        <Header />
-        <Dashboard inventory={this.state.inventory} get={this.componentDidMount} edit={this.addSelectedProduct}/>
-        <Form get={this.componentDidMount} selected={this.state.selectedProduct}/>
+      <HashRouter>
+      <div>
+          <Header />
+          <Dashboard inventory={this.state.inventory} get={this.componentDidMount} edit={this.addSelectedProduct}/>
+          <Form get={this.componentDidMount} selected={this.state.selectedProduct}/>
       </div>
+      </HashRouter>
     )
   }
 }
