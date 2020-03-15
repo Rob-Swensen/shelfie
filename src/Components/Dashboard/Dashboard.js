@@ -9,6 +9,7 @@ class Dashboard extends Component {
 
         this.state = {
             inventory: [],
+            editStatus: false,
         }
         this.deleteProduct = this.deleteProduct.bind(this)
     }
@@ -26,13 +27,19 @@ deleteProduct = (id) => {
     .catch(error => console.log(error))
 }
 
+changeEditStatus = () => {
+    this.setState({
+        editStatus: !editStatus
+    })
+}
+
     render(){
         console.log(this.state.inventory)
         let inventoryList = this.state.inventory.map((element, index) => {return <Product key={index} item={element}
-        name={element.name} price={element.price} img={element.img} delete={this.deleteProduct} edit={this.props.edit}/>;});
+        name={element.name} price={element.price} img={element.img} delete={this.deleteProduct} edit={this.changedEditStatus}/>;});
         return(
             <div>
-                <Form get={this.componentDidUpdate}/>
+                <Form status={this.state.editStatus} get={this.componentDidUpdate}/>
                 {inventoryList}
             </div>
         )

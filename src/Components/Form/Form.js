@@ -4,12 +4,12 @@ import axios from 'axios';
 class Form extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            name: this.props.selected.name,
-            price: this.props.selected.price,
-            img: this.props.selected.img,
-            editingId: this.props.selected.id
-        }
+        // this.state = {
+        //     name: this.props.selected.name,
+        //     price: this.props.selected.price,
+        //     img: this.props.selected.img,
+        //     editingId: this.props.selected.id
+        // }
     }
 
     componentDidUpdate(prevProps){
@@ -24,7 +24,6 @@ class Form extends Component{
         }
     }
 
-    
 
 
     handleChange = (e) => {
@@ -37,7 +36,7 @@ class Form extends Component{
         this.setState({
             name: '',
             price: 0,
-            img: ''
+            img: '',
     })
     }
 
@@ -61,7 +60,9 @@ class Form extends Component{
         .catch(error => console.log(error))
     }
 
+
     render(){
+        if(this.props.status = false){
         return(
             <div className='product-add-edit'>
                 <div className='image-container'>
@@ -75,10 +76,24 @@ class Form extends Component{
                 <input className='add-edit-price' value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
                 <button className='cancel-button' onClick={this.handleCancel}>Cancel</button>
                 <button className='add-button' onClick={this.handleAdd}>Add to Inventory</button>
+            </div>)}
+        else {return(
+            <div className='product-add-edit'>
+                <div className='image-container'>
+                    {this.state.img}
+                </div>
+                <p>Image URL:</p>
+                <input value={this.state.img} placeholder='img' onChange={e => this.handleChange(e)} />
+                <p>Product Name:</p>
+                <input className='add-edit-name' value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
+                <p>Price:</p>
+                <input className='add-edit-price' value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
+                <button className='cancel-button' onClick={this.handleCancel}>Cancel</button>
                 <button className='save-button' onClick={() => this.updateProduct(this.props.selected.id)}>Save</button>
             </div>
-        )
+        )}
+            
     }
-}
 
+}
 export default Form;
