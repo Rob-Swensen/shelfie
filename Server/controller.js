@@ -49,6 +49,18 @@ module.exports = {
             console.log(error)
         })
 
+    },
+
+    getProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+
+        db.get_product(id)
+        .then(product => res.status(200).send(product))
+        .catch(error => {
+            res.status(500).send({errorMessage: 'Oops, something went wrong'});
+            console.log(error)
+        })
     }
 
 }

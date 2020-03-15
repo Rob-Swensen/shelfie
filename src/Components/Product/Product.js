@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Product extends Component {
     constructor(props){
         super(props);
-    }
-
-    handleEdit(id, name, price, img){
-        this.props.edit(id, name, price, img)
     }
 
     render(){
@@ -26,7 +23,9 @@ class Product extends Component {
                         </div>
                         <section className='player-card-buttons'>
                             <button onClick={() => this.props.delete(id)}>Delete</button>
-                            <button onClick={() => this.handleEdit(id, name, price, img)}>Edit</button>
+                            <Link to='/edit/:id'>
+                                <button>Edit</button>
+                            </Link>
                         </section>
                 </section>
            </div>

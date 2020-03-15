@@ -13,7 +13,7 @@ class Form extends Component{
     }
 
     componentDidUpdate(prevProps){
-        console.log(prevProps.selected.id)
+        // console.log(prevProps.selected.id)
         if(this.props.selected.id !== prevProps.selected.id){
             this.setState({
                 name: this.props.selected.name,
@@ -24,7 +24,10 @@ class Form extends Component{
         }
     }
 
-    handleChange= (e) => {
+    
+
+
+    handleChange = (e) => {
         this.setState({
             [e.target.placeholder]: e.target.value
         })
@@ -70,9 +73,9 @@ class Form extends Component{
                 <input className='add-edit-name' value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
                 <p>Price:</p>
                 <input className='add-edit-price' value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
-                <button onClick={this.handleCancel}>Cancel</button>
-                <button onClick={this.handleAdd}>Add to Inventory</button>
-                <button onClick={() => this.updateProduct(this.props.selected.id)}>Save</button>
+                <button className='cancel-button' onClick={this.handleCancel}>Cancel</button>
+                <button className='add-button' onClick={this.handleAdd}>Add to Inventory</button>
+                <button className='save-button' onClick={() => this.updateProduct(this.props.selected.id)}>Save</button>
             </div>
         )
     }
