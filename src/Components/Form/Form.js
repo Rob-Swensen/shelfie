@@ -60,10 +60,16 @@ class Form extends Component{
 
     render(){
         return(
-            <div className='product-card'>
+            <div className='product-add-edit'>
+                <div className='image-container'>
+                    {this.state.img}
+                </div>
+                <p>Image URL:</p>
                 <input value={this.state.img} placeholder='img' onChange={e => this.handleChange(e)} />
-                <input value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
-                <input value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
+                <p>Product Name:</p>
+                <input className='add-edit-name' value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
+                <p>Price:</p>
+                <input className='add-edit-price' value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
                 <button onClick={this.handleCancel}>Cancel</button>
                 <button onClick={this.handleAdd}>Add to Inventory</button>
                 <button onClick={() => this.updateProduct(this.props.selected.id)}>Save</button>

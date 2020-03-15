@@ -100,3 +100,26 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+.product-add-edit {
+  width: 37%;
+  height: 500px;
+  background-color: #3ad886;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.image-container {
+  width: 325px;
+  height: 200px;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 20px;
+  border: 1px solid red;
+  
+}
+
