@@ -4,6 +4,8 @@ import Form from './Components/Form/Form';
 import Header from './Components/Header/Header';
 import axios from 'axios';
 import {HashRouter} from 'react-router-dom';
+import './Reset.css';
+import './App.css';
 
 class App extends Component {
   constructor(){
@@ -16,7 +18,7 @@ class App extends Component {
         name: '',
         price: 0,
         img: ''
-      },
+      }
     }
     this.componentDidMount = this.componentDidMount.bind(this)
     this.addSelectedProduct = this.addSelectedProduct.bind(this)
