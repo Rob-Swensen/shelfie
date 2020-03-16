@@ -12,7 +12,7 @@ class Header extends Component {
                         <p>shelfie</p>
                     </div>
                     <div className='nav-buttons'>
-                        <Link to='/'>
+                        <Link to='/' activeStyle>
                         <button className='nav-button dashboard-button'>Dashboard</button>
                         </Link>
                         <Link to='/add'>

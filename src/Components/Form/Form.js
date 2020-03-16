@@ -4,27 +4,34 @@ import axios from 'axios';
 class Form extends Component{
     constructor(props){
         super(props);
-        // this.state = {
-        //     name: this.props.selected.name,
-        //     price: this.props.selected.price,
-        //     img: this.props.selected.img,
-        //     editingId: this.props.selected.id
-        // }
-    }
-
-    componentDidUpdate(prevProps){
-        // console.log(prevProps.selected.id)
-        if(this.props.selected.id !== prevProps.selected.id){
-            this.setState({
-                name: this.props.selected.name,
-                price: this.props.selected.price,
-                img: this.props.selected.img,
-                editingId: this.props.selected.id
-            })
+        this.state = {
+            name: '',
+            price: 0,
+            img: ''
         }
     }
 
+    // componentDidUpdate(prevProps){
+    //     // console.log(prevProps.selected.id)
+    //     if(this.props.selected.id !== prevProps.selected.id){
+    //         this.setState({
+    //             name: this.props.selected.name,
+    //             price: this.props.selected.price,
+    //             img: this.props.selected.img,
+    //             editingId: this.props.selected.id
+    //         })
+    //     }
+    // }
 
+    componentDidMount(id){
+        axios.get(`/api/inventory/${id}`)
+        .then(response => 
+            this.setState({
+                name: response.data,
+                price: response.data,
+                img: response.data
+            }))
+    }
 
     handleChange = (e) => {
         this.setState({
@@ -58,11 +65,12 @@ class Form extends Component{
         axios.put(`/api/inventory/${id}`, {name, price, img})
         .then(() => this.props.get())
         .catch(error => console.log(error))
+        this.props.status()
     }
 
 
     render(){
-        if(this.props.status = false){
+        if(!this.props.status){
         return(
             <div className='product-add-edit'>
                 <div className='image-container'>
@@ -74,8 +82,10 @@ class Form extends Component{
                 <input className='add-edit-name' value={this.state.name} placeholder='name' onChange={e => this.handleChange(e)} />
                 <p>Price:</p>
                 <input className='add-edit-price' value={this.state.price} placeholder='price' onChange={e => this.handleChange(e)} />
-                <button className='cancel-button' onClick={this.handleCancel}>Cancel</button>
-                <button className='add-button' onClick={this.handleAdd}>Add to Inventory</button>
+                <section className='add-cancel-buttons'>
+                    <button className='cancel-button' onClick={this.handleCancel}>Cancel</button>
+                    <button className='add-button' onClick={this.handleAdd}>Add to Inventory</button>
+                </section>
             </div>)}
         else {return(
             <div className='product-add-edit'>

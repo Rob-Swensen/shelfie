@@ -111,6 +111,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+  padding: 15px;
 }
 
 .image-container {
@@ -120,6 +122,43 @@
   margin: 0 auto;
   margin-top: 20px;
   border: 1px solid red;
+}
+
+.add-cancel-buttons {
+  height: 40px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
   
 }
+
+.product-add-edit p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+
+.cancel-button {
+  border-radius: 7px;
+  background-color: #ed6b5a;
+  border: .25px solid black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.add-button {
+  border-radius: 7px;
+  background-color: #ed6b5a;
+  border: .25px solid black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.edit-button {
+  height: 40px;
+}
+
+
 

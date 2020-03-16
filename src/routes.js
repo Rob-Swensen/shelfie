@@ -8,7 +8,7 @@ import Product from './Components/Product/Product';
 export default (
     <Switch>
         <Route exact path='/' component={Dashboard}/>
-        <Route path='/add' component={Form}/>
+        <Route path='/add' render={(props) => <Form {...props} isAuthed={true}/>}/>
         <Route path='/edit/:id' component={Form} />
     </Switch>
 )

@@ -14,7 +14,6 @@ displayEdit = () => {
     render(){
         const {name, price, img} = this.props
         const {id} = this.props.item
-         if(this.state.editStatus = false){
             return(
                <div className='product-card'>
                    <section>
@@ -30,7 +29,7 @@ displayEdit = () => {
                             <section className='player-card-buttons'>
                                 <button onClick={() => this.props.delete(id)}>Delete</button>
                                 <Link to='/edit/:id'>
-                                    <button onClick={this.displayEdit}>Edit</button>
+                                    <button className='edit-button' onClick={this.displayEdit}>Edit</button>
                                 </Link>
                             </section>
                     </section>
@@ -39,7 +38,5 @@ displayEdit = () => {
             
         }
     }
-    
-}
 
 export default Product;
