@@ -1,56 +1,68 @@
-import React, {Component} from 'react';
-import Product from '../Product/Product';
-import axios from 'axios';
-import Form from '../Form/Form'
+import React, { Component } from "react";
+import Product from "../Product/Product";
+import axios from "axios";
 
 class Dashboard extends Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            inventory: [],
-            editStatus: false,
-        }
-        this.deleteProduct = this.deleteProduct.bind(this)
+    this.state = {
+      inventory: [],
+      editStatus: false
+    };
+    this.deleteProduct = this.deleteProduct.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get("api/inventory")
+      .then(response => this.setState({ inventory: response.data }))
+      .catch(error => console.log("error"));
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.inventory !== this.state.inventory) {
+      axios
+        .get("api/inventory")
+        .then(response => this.setState({ inventory: response.data }))
+        .catch(error => console.log("error"));
     }
+  }
 
-componentDidMount(){
-        axios.get('api/inventory')
-        .then(response => 
-          this.setState({inventory: response.data}))
-        .catch(error => console.log(error))
-      }
+  deleteProduct = id => {
+    axios
+      .delete(`/api/inventory/${id}`)
+      .then(() => console.log("success"))
+      .catch(error => console.log("error"));
+  };
 
-componentDidUpdate(){
-    axios.get('api/inventory')
-    .then(response => 
-        this.setState({inventory: response.data}))
-    .catch(error => console.log(error))
-}
-
-deleteProduct = (id) => {
-    axios.delete(`/api/inventory/${id}`)
-    .then(() => console.log('success'))
-    .catch(error => console.log(error))
-}
-
-changeEditStatus(){
+  changeEditStatus() {
     this.setState({
-        editStatus: !this.state.editStatus
-    })
-}
+      editStatus: !this.state.editStatus
+    });
+  }
 
-    render(){
-        console.log(this.state.inventory)
-        let inventoryList = this.state.inventory.map((element, index) => {return <Product key={index} item={element}
-        name={element.name} price={element.price} img={element.img} delete={this.deleteProduct} edit={this.changeEditStatus}/>;});
-        return(
-            <div>
-                {/* <Form status={this.state.editStatus} get={this.componentDidUpdate}/> */}
-                {inventoryList}
-            </div>
-        )
-    }
+  render() {
+    let inventoryList = this.state.inventory.map((element, index) => {
+      return (
+        <Product
+          key={index}
+          item={element}
+          name={element.name}
+          price={element.price}
+          img={element.img}
+          delete={this.deleteProduct}
+          edit={this.changeEditStatus}
+        />
+      );
+    });
+    return (
+      <div>
+        {/* <Form status={this.state.editStatus} get={this.componentDidUpdate}/> */}
+        {inventoryList}
+      </div>
+    );
+  }
 }
 
 export default Dashboard;
