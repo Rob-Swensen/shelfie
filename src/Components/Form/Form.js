@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Form extends Component {
   constructor(props) {
@@ -11,31 +12,21 @@ class Form extends Component {
     };
   }
 
-  // componentDidUpdate(prevProps){
-  //     // console.log(prevProps.selected.id)
-  //     if(this.props.selected.id !== prevProps.selected.id){
-  //         this.setState({
-  //             name: this.props.selected.name,
-  //             price: this.props.selected.price,
-  //             img: this.props.selected.img,
-  //             editingId: this.props.selected.id
-  //         })
-  //     }
-  // }
-
   componentDidMount() {
-    axios.get(`/api/inventory/${this.props.match.params.id}`).then(response =>
+    axios.get(`/api/inventory/${this.props.match.params.id}`).then(response => {
+      console.log(response.data)
       this.setState({
-        name: response.data,
-        price: response.data,
-        img: response.data
+        name: response.data[0].name,
+        price: response.data[0].price,
+        img: response.data[0].img
       })
+    }
     );
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.placeholder]: e.target.value
+      [e.target.name]: e.target.value
     });
   };
 
@@ -66,19 +57,20 @@ class Form extends Component {
       .put(`/api/inventory/${id}`, { name, price, img })
       .then(() => console.log("success"))
       .catch(error => console.log("error"));
-    this.props.status();
+      this.props.history.push('/')
   };
 
   render() {
     console.log(this.props);
-    if (!this.props.status) {
+    if (this.props.location.pathname === '/add' ) {
       return (
         <div className="product-add-edit">
-          <div className="image-container">{this.state.img}</div>
+          <img className="image-space" src={this.state.img} alt="product"/>
           <p>Image URL:</p>
           <input
             value={this.state.img}
             placeholder="img"
+            name="img"
             onChange={e => this.handleChange(e)}
           />
           <p>Product Name:</p>
@@ -86,6 +78,7 @@ class Form extends Component {
             className="add-edit-name"
             value={this.state.name}
             placeholder="name"
+            name="name"
             onChange={e => this.handleChange(e)}
           />
           <p>Price:</p>
@@ -93,15 +86,18 @@ class Form extends Component {
             className="add-edit-price"
             value={this.state.price}
             placeholder="price"
+            name="price"
             onChange={e => this.handleChange(e)}
           />
           <section className="add-cancel-buttons">
             <button className="cancel-button" onClick={this.handleCancel}>
               Cancel
             </button>
-            <button className="add-button" onClick={this.handleAdd}>
-              Add to Inventory
-            </button>
+            <Link to="/">
+              <button className="add-button" onClick={() => this.handleAdd()}>
+                Add to Inventory
+              </button>
+            </Link>
           </section>
         </div>
       );
@@ -112,32 +108,34 @@ class Form extends Component {
           <p>Image URL:</p>
           <input
             value={this.state.img}
-            placeholder="img"
+            name="img"
             onChange={e => this.handleChange(e)}
           />
           <p>Product Name:</p>
           <input
             className="add-edit-name"
             value={this.state.name}
-            placeholder="name"
+            name="name"
             onChange={e => this.handleChange(e)}
           />
           <p>Price:</p>
           <input
             className="add-edit-price"
             value={this.state.price}
-            placeholder="price"
+            name="price"
             onChange={e => this.handleChange(e)}
           />
           <button className="cancel-button" onClick={this.handleCancel}>
             Cancel
           </button>
-          <button
-            className="save-button"
-            onClick={() => this.updateProduct(this.props.selected.id)}
-          >
-            Save
-          </button>
+          <Link to="/">
+            <button
+              className="save-button"
+              onClick={() => this.updateProduct(this.props.match.params.id)}
+            >
+              Save
+            </button>
+          </Link>
         </div>
       );
     }

@@ -1,41 +1,43 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
-class Product extends Component {
-  displayEdit = id => {
-    this.props.history.push(`/edit/${id}`);
-  };
+function Product(props) {
+  // function displayEdit(id){
+  //   history.push(`/edit/${id}`)
+  // }
 
-  render() {
-    console.log(this.props);
-    const { name, price, img } = this.props;
-    const { id } = this.props.item;
-    return (
-      <div className="product-card">
-        <section>
-          <div className="product-img">{img}</div>
+  // displayEdit = id => {
+  //   history.push(`/edit/${id}`);
+  // };
+
+  const { name, price, img } = props;
+  const { id } = props.item;
+  // console.log(props)
+  return (
+    // console.log(this.props);
+    <div className="product-card">
+      <section>
+        <div className="product-img">{img}</div>
+      </section>
+      <section className="product-info">
+        <div className="product-info-text">
+          {name}
+          <br />
+          <p>${price}</p>
+        </div>
+        <section className="player-card-buttons">
+          <button onClick={() => props.delete(id)}>Delete</button>
+          <button
+            className="edit-button"
+            onClick={() => props.history.push(`/edit/${id}`)}
+          >
+            Edit
+          </button>
         </section>
-        <section className="product-info">
-          <div className="product-info-text">
-            {name}
-            <br />
-            <p>${price}</p>
-          </div>
-          <section className="player-card-buttons">
-            <button onClick={() => this.props.delete(id)}>Delete</button>
-            <Link to="/edit/:id">
-              <button
-                className="edit-button"
-                onClick={() => this.displayEdit(id)}
-              >
-                Edit
-              </button>
-            </Link>
-          </section>
-        </section>
-      </div>
-    );
-  }
+      </section>
+    </div>
+  );
 }
 
-export default Product;
+export default withRouter(Product);

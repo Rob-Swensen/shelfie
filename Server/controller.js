@@ -30,7 +30,7 @@ module.exports = {
         const {id} = req.params;
 
         db.delete_product(id)
-        .then(() => res.sendStatus(200))
+        .then(products => res.status(200).send(products))
         .catch(error => {
             res.status(500).send({errorMessage: 'Oops, something went wrong'});
             console.log(error)
@@ -38,11 +38,12 @@ module.exports = {
     },
 
     updateProduct: (req, res) => {
+        console.log(req.body, req.params)
         const db = req.app.get('db')
         const {name, price, img} = req.body
         const {id} = req.params
 
-        db.update_product([name, price, img, id])
+        db.update_product([name, +price, img, id])
         .then(() => res.sendStatus(200))
         .catch(error => {
             res.status(500).send({errorMessage: 'Oops, something went wrong'});

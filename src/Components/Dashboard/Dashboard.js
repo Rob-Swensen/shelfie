@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import Product from "../Product/Product";
 import axios from "axios";
 
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       inventory: [],
-      editStatus: false
     };
-    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   componentDidMount() {
@@ -20,29 +19,25 @@ class Dashboard extends Component {
       .catch(error => console.log("error"));
   }
 
-  componentDidUpdate(prevState) {
-    if (prevState.inventory !== this.state.inventory) {
-      axios
-        .get("api/inventory")
-        .then(response => this.setState({ inventory: response.data }))
-        .catch(error => console.log("error"));
-    }
-  }
+  // componentDidUpdate(prevState) {
+  //   if (prevState.inventory !== this.state.inventory) {
+  //     axios
+  //       .get("api/inventory")
+  //       .then(response => this.setState({ inventory: response.data }))
+  //       .catch(error => console.log("error"));
+  //   }
+  // }
 
   deleteProduct = id => {
     axios
       .delete(`/api/inventory/${id}`)
-      .then(() => console.log("success"))
+      .then(response => this.setState({inventory: response.data}))
       .catch(error => console.log("error"));
   };
 
-  changeEditStatus() {
-    this.setState({
-      editStatus: !this.state.editStatus
-    });
-  }
 
   render() {
+    console.log(this.props)
     let inventoryList = this.state.inventory.map((element, index) => {
       return (
         <Product
