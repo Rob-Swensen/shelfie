@@ -9,15 +9,16 @@ module.exports = {
         .then(inventory => res.status(200).send(inventory))
         .catch(err => {
             res.status(500).send({errorMessage: 'Oops, something went wrong'});
-            console.log(error)
+            console.log('error')
         })
     },
 
     createProduct: (req, res) => {
+        console.log(req.body)
         const db = req.app.get('db')
-        const {name, price, imgurl} = req.body;
+        const {name, price, img} = req.body;
 
-        db.create_product([name, price, imgurl])
+        db.create_product([name, price, img])
         .then(() => res.sendStatus(200))
         .catch(error => {
             res.status(500).send({errorMessage: 'Oops, something went wrong'});

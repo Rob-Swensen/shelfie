@@ -18,7 +18,7 @@ function Product(props) {
     // console.log(this.props);
     <div className="product-card">
       <section>
-        <div className="product-img">{img}</div>
+        <img className="product-img" src={img} alt={name}/>
       </section>
       <section className="product-info">
         <div className="product-info-text">

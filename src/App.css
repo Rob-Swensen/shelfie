@@ -101,6 +101,13 @@
   font-weight: bold;
 }
 
+.add-image-space {
+  height: 200px;
+  width: 325px;
+  background-color: white;
+  margin: 0 auto;
+}
+
 .product-add-edit {
   width: 37%;
   height: 500px;
@@ -133,12 +140,26 @@
   
 }
 
+.cancel-save-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .product-add-edit p {
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
 }
 
 .cancel-button {
+  border-radius: 7px;
+  background-color: #ed6b5a;
+  border: .25px solid black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.save-button {
   border-radius: 7px;
   background-color: #ed6b5a;
   border: .25px solid black;

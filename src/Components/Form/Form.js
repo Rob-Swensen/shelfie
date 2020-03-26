@@ -14,14 +14,13 @@ class Form extends Component {
 
   componentDidMount() {
     axios.get(`/api/inventory/${this.props.match.params.id}`).then(response => {
-      console.log(response.data)
+      console.log(response.data);
       this.setState({
         name: response.data[0].name,
         price: response.data[0].price,
         img: response.data[0].img
-      })
-    }
-    );
+      });
+    });
   }
 
   handleChange = e => {
@@ -57,15 +56,17 @@ class Form extends Component {
       .put(`/api/inventory/${id}`, { name, price, img })
       .then(() => console.log("success"))
       .catch(error => console.log("error"));
-      this.props.history.push('/')
+    this.props.history.push("/");
   };
 
   render() {
     console.log(this.props);
-    if (this.props.location.pathname === '/add' ) {
+    if (this.props.location.pathname === "/add") {
       return (
         <div className="product-add-edit">
-          <img className="image-space" src={this.state.img} alt="product"/>
+          <div className='add-image-space'>
+            <img className="image-space" src={this.state.img} alt="product" />
+          </div>
           <p>Image URL:</p>
           <input
             value={this.state.img}
@@ -104,7 +105,7 @@ class Form extends Component {
     } else {
       return (
         <div className="product-add-edit">
-          <div className="image-container">{this.state.img}</div>
+          <img className="image-container" src={this.state.img} alt='product image'/>
           <p>Image URL:</p>
           <input
             value={this.state.img}
@@ -125,17 +126,19 @@ class Form extends Component {
             name="price"
             onChange={e => this.handleChange(e)}
           />
-          <button className="cancel-button" onClick={this.handleCancel}>
-            Cancel
-          </button>
-          <Link to="/">
-            <button
-              className="save-button"
-              onClick={() => this.updateProduct(this.props.match.params.id)}
-            >
-              Save
+          <section className="cancel-save-buttons">
+            <button className="cancel-button" onClick={this.handleCancel}>
+              Cancel
             </button>
-          </Link>
+            <Link to="/">
+              <button
+                className="save-button"
+                onClick={() => this.updateProduct(this.props.match.params.id)}
+              >
+                Save
+              </button>
+            </Link>
+          </section>
         </div>
       );
     }
